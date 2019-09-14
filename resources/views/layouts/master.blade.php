@@ -315,16 +315,25 @@
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">MAIN NAVIGATION</li>
-                <li class="active treeview">
+                <li>
                     <router-link to="/dashboard">
                         <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                    </router-link>
+                </li>
+                <li class="treeview">
+                    <a href="">
+                        <i class="fa fa-dashboard"></i> <span>Managements</span>
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
-                    </router-link>
+                    </a>
                     <ul class="treeview-menu">
-                        <li><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-                        <li class="active"><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                        <li>
+                            <router-link to="/users"><i class="fa fa-circle-o"></i>
+                                Users
+                            </router-link>
+                        </li>
+
                     </ul>
                 </li>
                 <li>
@@ -334,10 +343,16 @@
                     </router-link>
                 </li>
                 <li>
-                    <router-link to="/profile">
-                        <i class="fa fa-th"></i> <span>Sign Out</span>
-                        <span class="pull-right-container"></span>
-                    </router-link>
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+
                 </li>
             </ul>
         </section>
@@ -346,7 +361,6 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-{{--        @yield('content')--}}
         <router-view></router-view>
     </div>
     <!-- /.content-wrapper -->
@@ -556,5 +570,10 @@
 
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}" defer></script>
+<script>
+    $(function () {
+        $('#test').DataTable();
+    });
+</script>
 </body>
 </html>

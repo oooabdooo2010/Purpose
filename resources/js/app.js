@@ -8,9 +8,9 @@ require('./bootstrap')
 
 window.Vue = require('vue')
 
-import VueRouter from "vue-router"
+import VueRouter from 'vue-router'
 
-Vue.use(VueRouter)
+window.Vue.use(VueRouter)
 
 
 /**
@@ -25,17 +25,40 @@ Vue.use(VueRouter)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 //Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+//Vue.component('dashboard', require('./components/Dashboard.vue').default);
+//Vue.component('profile', require('./components/Profile.vue').default);
+
+//const dashboard = require('./components/Dashboard.vue');
+
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+
+import dashboardCom from './components/Dashboard.vue'
+import ProfileCom from './components/Profile.vue'
+import UsersCom from './components/Users.vue'
 let routes = [
-    { path: '/dashboard', component: require('./components/Dashboard.vue') },
-    { path: '/profile', component: require('./components/Profile.vue') }
+    {
+        path: '/dashboard',
+        component: dashboardCom
+    }
+    ,
+    {
+        path: '/profile',
+        component: ProfileCom
+    }
+    ,
+    {
+        path: '/users',
+        component: UsersCom
+    }
 ]
 const router = new VueRouter({
+    mode : 'history',
     routes // short for `routes: routes`
 })
 

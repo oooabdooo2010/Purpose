@@ -13,3 +13,8 @@
 
 @import '~admin-lte/dist/css/skins/_all-skins.min.css';
 
+.router-link-exact-active{
+    border-left-color: #3c8dbc;
+    color: #fff;
+    background: #1e282c;
+}
