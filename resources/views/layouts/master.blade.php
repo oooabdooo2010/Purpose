@@ -348,6 +348,12 @@
                     </router-link>
                 </li>
                 <li>
+                    <router-link to="/dev">
+                        <i class="fa fa-th"></i> <span>Development</span>
+                        <span class="pull-right-container"></span>
+                    </router-link>
+                </li>
+                <li>
                     <a class="dropdown-item" href="{{ route('logout') }}"
                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -367,6 +373,8 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <router-view></router-view>
+
+        <vue-progress-bar></vue-progress-bar>
     </div>
     <!-- /.content-wrapper -->
 
@@ -576,9 +584,7 @@
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}" defer></script>
 <script>
-    $(function () {
-        $('#test').DataTable();
-    });
+
 </script>
 </body>
 </html>
