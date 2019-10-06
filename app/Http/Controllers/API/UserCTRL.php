@@ -12,6 +12,7 @@ class UserCTRL extends Controller
     public function __construct()
     {
         $this->middleware('auth:api');
+
     }
 
     /**
@@ -21,6 +22,7 @@ class UserCTRL extends Controller
      */
     public function index()
     {
+        $this->authorize('isAdmin');
         return User::latest()->paginate(10);
     }
 
@@ -47,6 +49,56 @@ class UserCTRL extends Controller
             'photo' => $request['photo'],
         ]);
     }
+
+    public function UpdateProfile(Request $request){
+        $user = auth('api')->user();
+        $this->validate($request, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $user->id],
+            'password' => ['sometimes', 'min:6'],
+        ]);
+
+        $currentUser = $user->photo;
+
+        if ($request->photo != $currentUser){
+            $name = time().'.' . explode('/' , explode(':' ,
+                    substr($request->photo, 0, strpos($request->photo , ';')))[1])[1];
+            \Intervention\Image\Facades\Image::make($request->photo)->save(
+                public_path('img/profile/').$name);
+            $request->merge(['photo' => $name]);
+
+            $userPhoto = public_path('img/profile/'. $currentUser);
+            //$move = move_uploaded_file($currentUser , 'img/profile/del/');
+//            return 'userPhoto: ' . $userPhoto . ' - currentUser: ' .
+//            $currentUser . ' - request : ' . $request->photo .
+//            ' - name' . $name;
+            //move_uploaded_file($currentUser , 'img/profile/del/');
+
+            if (file_exists($userPhoto)){
+                copy('img/profile/'.$currentUser, 'img/profile/del/'.$currentUser);
+                @unlink($userPhoto);
+//                return 'userPhoto: ' . $userPhoto . ' - currentUser: ' .
+//                    $currentUser . ' - request : ' . $request->photo .
+//                    ' - name' . $name;
+
+            }
+        }
+
+
+        if (!empty($request->password)){
+            $request->merge(['password' => Hash::make($request['password'])]);
+        }
+
+
+        $user->update($request->all());
+        return ['msg' => 'success'];
+    }
+
+    public function profile(){
+        return auth('api')->user();
+    }
+
+
 
     /**
      * Display the specified resource.

@@ -325,6 +325,13 @@
                         <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                     </router-link>
                 </li>
+                <li>
+                    <router-link to="/profile">
+                        <i class="fa fa-th"></i> <span>Profile</span>
+                        <span class="pull-right-container"></span>
+                    </router-link>
+                </li>
+                @can('isAdmin')
                 <li class="treeview">
                     <a href="">
                         <i class="fa fa-dashboard"></i> <span>Managements</span>
@@ -341,18 +348,15 @@
 
                     </ul>
                 </li>
-                <li>
-                    <router-link to="/profile">
-                        <i class="fa fa-th"></i> <span>Profile</span>
-                        <span class="pull-right-container"></span>
-                    </router-link>
-                </li>
+
+
                 <li>
                     <router-link to="/dev">
                         <i class="fa fa-th"></i> <span>Development</span>
                         <span class="pull-right-container"></span>
                     </router-link>
                 </li>
+                @endcan
                 <li>
                     <a class="dropdown-item" href="{{ route('logout') }}"
                        onclick="event.preventDefault();
