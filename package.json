@@ -26,7 +26,7 @@
     "dependencies": {
         "admin-lte": "^2.4.18",
         "font-awesome": "^4.7.0",
-        "moment": "^2.24.0",
+        "moment": "^2.29.2",
         "sweetalert2": "^8.17.4",
         "vform": "^1.0.1",
         "vue-progressbar": "^0.7.5",
